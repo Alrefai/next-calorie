@@ -1,0 +1,23 @@
+{
+  "name": "next-calorie",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "hyperscript-helpers": "^3.0.3",
+    "next": "^6.1.1",
+    "ramda": "^0.25.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-hyperscript": "^3.2.0"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Mohammed Alrefai",
+  "license": "MIT",
+  "description": "Calories Counter (demo) – React app built with Next.js.",
+  "repository": "https://github.com/Alrefai/next-calorie.git",
+  "private": true
+}

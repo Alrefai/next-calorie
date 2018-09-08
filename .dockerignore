@@ -1,0 +1,11 @@
+*
+!actions
+!components
+!constants
+!data
+!next.config.js
+!package.json
+!pages
+!reducers
+!static
+!yarn.lock
