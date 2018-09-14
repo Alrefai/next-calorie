@@ -6,7 +6,7 @@ import Table from '../components/table'
 
 const { div, pre } = hh(h)
 
-const Index = ({ dispatch, model }) => div({ className:`mw6 center` }, [
+const Index = ({ dispatch, model }) => div({ className: `mh2` }, [
   h(Header),
   h(Form, { dispatch, model }),
   h(Table, { dispatch, model }),
