@@ -1,6 +1,7 @@
+const withPlugins = require('next-compose-plugins')
 const withCSS = require('@zeit/next-css')
 
-module.exports = withCSS({
+const nextConfig = {
   webpack: config => {
     // Fixes npm packages that depend on `fs` module
     config.node = {
@@ -9,4 +10,8 @@ module.exports = withCSS({
 
     return config
   }
-})
+}
+
+module.exports = withPlugins([
+  withCSS,
+], nextConfig)
