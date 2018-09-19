@@ -1,13 +1,11 @@
-import { map } from 'ramda'
 import { saveButton } from '../constants'
 
-const edit = (model) => {
+const edit = model => {
   const { nextId, editId, description, calories, timeLine } = model
   if (!description || !calories) return { ...model, saveButton }
-  const meals = map(meal => {
-    if (meal.id === editId) return { ...meal, description, calories }
-    return meal
-  }, model.meals)
+  const meals = model.meals.map(meal => {
+    return meal.id === editId ? { ...meal, description, calories } : meal
+  })
   const history = [...model.history.slice(0, timeLine + 1), { meals, nextId }]
   return {
     ...model,

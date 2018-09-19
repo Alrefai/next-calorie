@@ -6,7 +6,7 @@ const { CLASS: { SECONDARY }, STYLE: { BBLR, BBRR } } = TYPES
 export const ButtonSet = ({ dispatch, text }) => (
   <div>
     <Button
-      text={text}
+      {...{ text }}
       className={`
         w-70 ${text !== `Save` ? `bg-dark-red near-white b--dark-red` : ``}
       `}

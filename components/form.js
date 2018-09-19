@@ -16,10 +16,10 @@ const FormSet = ({
     }}
   >
     <div className={`flex flex-nowrap mb3`}>
-      <MealFieldSet dispatch={dispatch} value={description} />
-      <CaloriesFieldSet dispatch={dispatch} value={calories} />
+      <MealFieldSet {...{ dispatch }} value={description} />
+      <CaloriesFieldSet {...{ dispatch }} value={calories} />
     </div>
-    <ButtonSet dispatch={dispatch} text={saveButton} />
+    <ButtonSet {...{ dispatch }} text={saveButton} />
   </form>
 )
 
@@ -30,14 +30,12 @@ const FormActionSet = ({ dispatch }) => (
       className={`w-50 bn mv2 br3`}
       onClick={() => dispatch(showFormAction(true))}
     />
-    <UndoRedoSet dispatch={dispatch} />
+    <UndoRedoSet {...{ dispatch } } />
   </div>
 )
 
-const Form = ({ dispatch, model }) => {
-  const { showForm } = model
-  if (showForm) return <FormSet dispatch={dispatch} model={model} />
-  return <FormActionSet dispatch={dispatch} />
-}
+const Form = ({ dispatch, model }) => model.showForm
+  ? <FormSet {...{ dispatch, model }} />
+  : <FormActionSet {...{ dispatch }} />
 
 export default Form

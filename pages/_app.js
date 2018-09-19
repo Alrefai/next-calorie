@@ -7,7 +7,7 @@ import '../node_modules/tachyons/css/tachyons.min.css'
 
 class MyApp extends App {
   state = reducer(initModel, {})
-  dispatch = (action) => this.setState(prevState => reducer(prevState, action))
+  dispatch = action => this.setState(prevState => reducer(prevState, action))
 
   render() {
     const { Component } = this.props

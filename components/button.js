@@ -18,10 +18,8 @@ export const Button = ({
   buttonType = TYPES.CLASS.PRIMARY,
 }) => (
   <button
-    type={type}
+    {...{ type, style, onClick }}
     className={`${className} ${buttonType} f5 pa2`}
-    style={style}
-    onClick={onClick}
   >
     {text}
   </button>

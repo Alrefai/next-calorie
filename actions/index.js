@@ -10,34 +10,34 @@ export const ACTIONS = {
   REDO: `REDO`,
 }
 
-export const showFormAction = (showForm) => ({
+export const showFormAction = showForm => ({
   type: ACTIONS.SHOW_FORM,
   showForm,
 })
 
-export const mealInputAction = (description) => ({
+export const mealInputAction = description => ({
   type: ACTIONS.MEAL_INPUT,
   description,
 })
 
-export const caloriesInputAction = (calories) => ({
+export const caloriesInputAction = calories => ({
   type: ACTIONS.CALORIES_INPUT,
   calories,
 })
 
 export const saveMealAction = { type: ACTIONS.SAVE_MEAL }
 
-export const deleteMealAction = (id) => ({
+export const deleteMealAction = id => ({
   type: ACTIONS.DELETE_MEAL,
   id,
 })
 
-export const editMealAction = (editId) => ({
+export const editMealAction = editId => ({
   type: ACTIONS.EDIT_MEAL,
   editId,
 })
 
-export const addDataAction = (data) => ({
+export const addDataAction = data => ({
   type: ACTIONS.ADD_DATA,
   data,
 })

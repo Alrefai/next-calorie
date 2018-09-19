@@ -13,8 +13,6 @@ const bodyCell = curry((id, item, i) => (
 export const MealRow = ({ dispatch, fields, row }) => pipe(
   map(field => row[field]),
   partial(addIndex(map), [bodyCell(row.id)]),
-  concat(__, [
-    <IconSet key={`IS`+row.id} dispatch={dispatch} mealId={row.id} />
-  ]),
+  concat(__, [<IconSet key={`IS`+row.id} {...{ dispatch }} mealId={row.id} />]),
   cells => <tr key={`trb`+row.id}>{cells}</tr>
 )(fields)

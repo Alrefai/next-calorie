@@ -1,12 +1,10 @@
 import { mealInputAction, caloriesInputAction } from '../../actions'
 
 const InputField = ({ label, type, value, onChange, className }) => (
-  <div className={className}>
+  <div {...{ className }}>
     <label className={`db mb1 pv2`}>{label}</label>
     <input
-      type={type}
-      value={value}
-      onChange={onChange}
+      {...{ type, value, onChange }}
       placeholder={`input...`}
       maxLength={label === `Meal` ? `10` : `4`}
       autoFocus={label === `Meal` ? `autoFocus` : ``}
@@ -19,7 +17,7 @@ export const MealFieldSet = ({ dispatch, value }) => (
   <InputField
     label={`Meal`}
     className={`w-70`}
-    value={value}
+    {...{ value }}
     onChange={e => dispatch(mealInputAction(e.target.value))}
   />
 )

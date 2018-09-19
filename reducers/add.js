@@ -1,6 +1,6 @@
 import { saveButton } from '../constants'
 
-const add = (model) => {
+const add = model => {
   const { description, calories, timeLine } = model
   if (!description || !calories) return { ...model, saveButton }
   const meal = { id: model.nextId, description, calories }
