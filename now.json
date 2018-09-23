@@ -1,6 +1,7 @@
 {
   "name": "next-calorie",
   "alias": "calorie",
+  "regions": ["all"],
   "public": true,
   "type": "docker",
   "features": {

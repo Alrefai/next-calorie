@@ -1,4 +1,4 @@
-import { pipe, partial, curry, map, __, concat, addIndex } from 'ramda'
+import { pipe, partial, curry, map, append, addIndex } from 'ramda'
 import { IconSet } from './iconSet'
 
 const bodyCell = curry((id, item, i) => (
@@ -13,6 +13,6 @@ const bodyCell = curry((id, item, i) => (
 export const MealRow = ({ dispatch, fields, row }) => pipe(
   map(field => row[field]),
   partial(addIndex(map), [bodyCell(row.id)]),
-  concat(__, [<IconSet key={`IS`+row.id} {...{ dispatch }} mealId={row.id} />]),
+  append(<IconSet key={`IS`+row.id} {...{ dispatch }} mealId={row.id} />),
   cells => <tr key={`trb`+row.id}>{cells}</tr>
 )(fields)

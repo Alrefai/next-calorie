@@ -12,7 +12,7 @@ export const TYPES = {
 export const Button = ({
   text,
   type,
-  className,
+  className = ``,
   style,
   onClick,
   buttonType = TYPES.CLASS.PRIMARY,

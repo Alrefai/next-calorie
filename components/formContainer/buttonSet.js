@@ -1,15 +1,14 @@
 import { Button, TYPES } from '../button'
-import { showFormAction } from '../../actions'
 
 const { CLASS: { SECONDARY }, STYLE: { BBLR, BBRR } } = TYPES
 
-export const ButtonSet = ({ dispatch, text }) => (
+export const ButtonSet = ({ onClick, text }) => (
   <div>
     <Button
       {...{ text }}
-      className={`
-        w-70 ${text !== `Save` ? `bg-dark-red near-white b--dark-red` : ``}
-      `}
+      className={
+      `w-70 ${text !== `Save` ? `bg-dark-red near-white b--dark-red` : ``}`
+      }
       style={BBLR}
     />
     <Button
@@ -18,7 +17,7 @@ export const ButtonSet = ({ dispatch, text }) => (
       buttonType={SECONDARY}
       className={`w-30 ${text !== `Save` ? `dark-red b--dark-red` : ``}`}
       style={BBRR}
-      onClick={() => dispatch(showFormAction(false))}
+      {...{ onClick }}
     />
   </div>
 )

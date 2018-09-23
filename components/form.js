@@ -1,8 +1,8 @@
+import { Button } from './button'
 import {
   ButtonSet, MealFieldSet, CaloriesFieldSet, UndoRedoSet
 } from './formContainer'
 import { saveMealAction, showFormAction } from '../actions'
-import { Button } from './button'
 
 const FormSet = ({
   dispatch,
@@ -19,7 +19,10 @@ const FormSet = ({
       <MealFieldSet {...{ dispatch }} value={description} />
       <CaloriesFieldSet {...{ dispatch }} value={calories} />
     </div>
-    <ButtonSet {...{ dispatch }} text={saveButton} />
+    <ButtonSet
+      onClick={() => dispatch(showFormAction(false))}
+      text={saveButton}
+    />
   </form>
 )
 
