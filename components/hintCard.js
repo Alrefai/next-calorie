@@ -5,7 +5,7 @@ import { hintText } from '../constants'
 
 const HintCard = ({ dispatch }) => (
   <div className={
-    `flex flex-column flex-row-reverse-ns flex-nowrap-ns tc tl-ns br2 mv4 pa0`
+    `flex flex-column flex-row-reverse-ns flex-nowrap-ns tc tl-ns br2 mv4 pa0 `
     + `bg-mid-gray`
   }>
     <i className={`far fa-lightbulb ma3 f2 f1-ns self-center`} />
