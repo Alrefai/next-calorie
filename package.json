@@ -7,13 +7,11 @@
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
-    "modern-normalize": "^0.5.0",
     "next": "^7.0.0",
     "next-compose-plugins": "^2.1.1",
     "ramda": "^0.25.0",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "tachyons": "^4.11.1"
+    "react-dom": "^16.5.2"
   },
   "version": "2.0.0",
   "main": "index.js",
@@ -21,5 +19,9 @@
   "license": "MIT",
   "description": "Calories Counter (demo) – React app built with Next.js.",
   "repository": "https://github.com/Alrefai/next-calorie.git",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "modern-normalize": "^0.5.0",
+    "tachyons": "^4.11.1"
+  }
 }
