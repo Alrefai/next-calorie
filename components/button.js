@@ -1,7 +1,7 @@
 export const TYPES = {
   CLASS: {
-    PRIMARY: `bg-near-white b--near-white`,
-    SECONDARY: `bg-black near-white b--near-white`,
+    PRIMARY: `ba bg-near-white b--near-white`,
+    SECONDARY: `ba bg-black near-white b--near-white`,
   },
   STYLE: {
     BBLR: { borderBottomLeftRadius: `8px`  },
