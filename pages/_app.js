@@ -2,8 +2,8 @@ import App, {Container} from 'next/app'
 import Head from '../components/head'
 import reducer from '../reducers'
 import { initModel } from '../constants'
-import '../node_modules/modern-normalize/modern-normalize.css'
-import '../node_modules/tachyons/css/tachyons.min.css'
+import 'tachyons/css/tachyons.min.css'
+import 'modern-normalize/modern-normalize.css'
 
 class MyApp extends App {
   state = reducer(initModel, {})
