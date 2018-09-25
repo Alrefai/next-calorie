@@ -13,7 +13,7 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
   },
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "index.js",
   "author": "Mohammed Alrefai",
   "license": "MIT",
