@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLightbulb } from '@fortawesome/free-regular-svg-icons'
 import { Button } from './button'
 import data from '../data'
 import { addDataAction } from '../actions'
@@ -11,8 +10,7 @@ const HintCard = ({ dispatch }) => (
     + `bg-mid-gray`
   }>
     <FontAwesomeIcon
-      icon={faLightbulb}
-      fixedWidth
+      icon={[`far`, `lightbulb`]}
       className={`ma3 f2 f1-ns self-center`}
     />
     <p className={`flex-grow-1 lh-copy ma0 ph2 pb3 pl3-ns pv2-ns`}>
