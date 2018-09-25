@@ -1,15 +1,22 @@
 import App, {Container} from 'next/app'
+import { library as fontawesome } from '@fortawesome/fontawesome-svg-core'
+import { faUndo, faRedo } from '@fortawesome/free-solid-svg-icons'
+import {
+  faLightbulb, faEdit, faTrashAlt
+} from '@fortawesome/free-regular-svg-icons'
 import Head from '../components/head'
 import reducer from '../reducers'
 import { initModel } from '../constants'
+import '@fortawesome/fontawesome-svg-core/styles.css'
 import 'tachyons/css/tachyons.min.css'
-import 'modern-normalize/modern-normalize.css'
+import 'modern-normalize/modern-normalize.css' //keep it the last import
 
 class MyApp extends App {
   state = reducer(initModel, {})
   dispatch = action => this.setState(prevState => reducer(prevState, action))
 
   render() {
+    fontawesome.add(faUndo, faRedo, faLightbulb, faTrashAlt, faEdit)
     const { Component } = this.props
     return (
       <Container>
