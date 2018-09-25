@@ -4,8 +4,8 @@ export const TYPES = {
     SECONDARY: `ba bg-black near-white b--near-white`,
   },
   STYLE: {
-    BBLR: { borderBottomLeftRadius: `8px`  },
-    BBRR: { borderBottomRightRadius: `8px` },
+    BBLR: { borderBottomLeftRadius: `.5rem`  },
+    BBRR: { borderBottomRightRadius: `.5rem` },
   },
 }
 
