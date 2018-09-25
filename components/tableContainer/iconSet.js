@@ -1,18 +1,24 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt, faEdit } from '@fortawesome/free-regular-svg-icons'
 import { pipe, partial, curry, map, append, __, addIndex } from 'ramda'
 import { deleteMealAction, editMealAction } from '../../actions'
 
 const deleteIcon = (dispatch, id) => (
-  <i
+  <FontAwesomeIcon
+    icon={faTrashAlt}
+    fixedWidth
     key={`fa-trash-alt`}
-    className={`far fa-trash-alt pr1 pointer`}
+    className={`pointer`}
     onClick={() => dispatch(deleteMealAction(id))}
   />
 )
 
 const editIcon = (dispatch, id) => (
-  <i
+  <FontAwesomeIcon
+    icon={faEdit}
+    fixedWidth
     key={`fa-edit`}
-    className={`far fa-edit pointer`}
+    className={`pointer`}
     onClick={() => dispatch(editMealAction(id))}
   />
 )

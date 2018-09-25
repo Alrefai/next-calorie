@@ -30,7 +30,7 @@ const FormActionSet = ({ dispatch }) => (
   <div className={`flex flex-nowrap justify-between items-center`}>
     <Button
       text={`Add Meal`}
-      className={`w-50 bn mv2 br3`}
+      className={`w-50 ba b--near-white mv2 br3`}
       onClick={() => dispatch(showFormAction(true))}
     />
     <UndoRedoSet {...{ dispatch } } />

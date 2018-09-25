@@ -1,5 +1,7 @@
-import data from '../data'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLightbulb } from '@fortawesome/free-regular-svg-icons'
 import { Button } from './button'
+import data from '../data'
 import { addDataAction } from '../actions'
 import { hintText } from '../constants'
 
@@ -8,7 +10,11 @@ const HintCard = ({ dispatch }) => (
     `flex flex-column flex-row-reverse-ns flex-nowrap-ns tc tl-ns br2 mv4 pa0 `
     + `bg-mid-gray`
   }>
-    <i className={`far fa-lightbulb ma3 f2 f1-ns self-center`} />
+    <FontAwesomeIcon
+      icon={faLightbulb}
+      fixedWidth
+      className={`ma3 f2 f1-ns self-center`}
+    />
     <p className={`flex-grow-1 lh-copy ma0 ph2 pb3 pl3-ns pv2-ns`}>
       {hintText}
     </p>

@@ -6,6 +6,7 @@ import 'tachyons/css/tachyons.min.css'
 import 'modern-normalize/modern-normalize.css'
 
 class MyApp extends App {
+
   state = reducer(initModel, {})
   dispatch = action => this.setState(prevState => reducer(prevState, action))
 
