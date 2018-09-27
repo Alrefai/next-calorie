@@ -11,12 +11,13 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import 'tachyons/css/tachyons.min.css'
 import 'modern-normalize/modern-normalize.css' //keep it the last import
 
+fontawesome.add(faUndo, faRedo, faLightbulb, faTrashAlt, faEdit)
+
 class MyApp extends App {
   state = reducer(initModel, {})
   dispatch = action => this.setState(prevState => reducer(prevState, action))
 
   render() {
-    fontawesome.add(faUndo, faRedo, faLightbulb, faTrashAlt, faEdit)
     const { Component } = this.props
     return (
       <Container>
