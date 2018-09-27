@@ -1,17 +1,14 @@
-const withPlugins = require('next-compose-plugins')
-const withCSS = require('@zeit/next-css')
+const {
+  PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD
+} = require('next/constants')
 
-const nextConfig = {
-  webpack: config => {
-    // Fixes npm packages that depend on `fs` module
-    config.node = {
-      fs: 'empty'
-    }
+// Fixes npm packages that depend on `fs` module
+const nextConfig = { webpack: config => ({ ...config, node: { fs: 'empty' } }) }
 
-    return config
+module.exports = (phase, { defaultConfig }) => {
+  if (phase === PHASE_DEVELOPMENT_SERVER || phase === PHASE_PRODUCTION_BUILD) {
+    const withCSS = require('@zeit/next-css')
+    return withCSS(nextConfig)
   }
+  return nextConfig
 }
-
-module.exports = withPlugins([
-  withCSS,
-], nextConfig)
