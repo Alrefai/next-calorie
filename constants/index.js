@@ -1,3 +1,8 @@
+export const meta = {
+  title: `Calories Counter`,
+  description: `Calories Counter (demo) – a single page React app built with `
+    + `Next.js and deployed to now.sh with Docker.`,
+}
 export const initModel = {
   description: ``,
   calories: 0,
