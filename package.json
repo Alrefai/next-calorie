@@ -21,7 +21,13 @@
   "main": "index.js",
   "author": "Mohammed Alrefai",
   "license": "MIT",
-  "description": "Calories Counter (demo) – React app built with Next.js.",
+  "description": "Calories Counter (demo) – React app built with Next.js and TypeScript",
   "repository": "https://github.com/Alrefai/next-calorie.git",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^14.6.2",
+    "@types/ramda": "^0.27.14",
+    "@types/react": "^16.9.49",
+    "typescript": "^4.0.2"
+  }
 }
