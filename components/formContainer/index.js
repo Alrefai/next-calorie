@@ -1,5 +1,3 @@
-import { ButtonSet } from './buttonSet'
-import { MealFieldSet, CaloriesFieldSet } from './input'
-import { UndoRedoSet } from './undoRedoSet'
-
-export { ButtonSet, MealFieldSet, CaloriesFieldSet, UndoRedoSet }
+export { ButtonSet } from './buttonSet'
+export { MealFieldSet, CaloriesFieldSet } from './input'
+export { UndoRedoSet } from './undoRedoSet'

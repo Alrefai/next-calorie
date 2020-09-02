@@ -1,21 +1,24 @@
+import { saveMealAction, showFormAction } from '../actions'
 import { Button } from './button'
 import {
-  ButtonSet, MealFieldSet, CaloriesFieldSet, UndoRedoSet
+  ButtonSet,
+  MealFieldSet,
+  CaloriesFieldSet,
+  UndoRedoSet,
 } from './formContainer'
-import { saveMealAction, showFormAction } from '../actions'
 
 const FormSet = ({
   dispatch,
-  model: { description, calories, saveButton }
+  model: { description, calories, saveButton },
 }) => (
   <form
-    className={`f4 mv2 pv2 w-100`}
+    className='f4 mv2 pv2 w-100'
     onSubmit={e => {
       e.preventDefault()
       dispatch(saveMealAction)
     }}
   >
-    <div className={`flex flex-nowrap mb3`}>
+    <div className='flex flex-nowrap mb3'>
       <MealFieldSet {...{ dispatch }} value={description} />
       <CaloriesFieldSet {...{ dispatch }} value={calories} />
     </div>
@@ -27,18 +30,19 @@ const FormSet = ({
 )
 
 const FormActionSet = ({ dispatch }) => (
-  <div className={`flex flex-nowrap justify-between items-center`}>
+  <div className='flex flex-nowrap justify-between items-center'>
     <Button
-      text={`Add Meal`}
-      className={`w-50 ba b--near-white mv2 br3`}
+      text='Add Meal'
+      className='w-50 ba b--near-white mv2 br3'
       onClick={() => dispatch(showFormAction(true))}
     />
-    <UndoRedoSet {...{ dispatch } } />
+    <UndoRedoSet {...{ dispatch }} />
   </div>
 )
 
-const Form = ({ dispatch, model }) => model.showForm
-  ? <FormSet {...{ dispatch, model }} />
-  : <FormActionSet {...{ dispatch }} />
-
-export default Form
+export const Form = ({ dispatch, model }) =>
+  model.showForm ? (
+    <FormSet {...{ dispatch, model }} />
+  ) : (
+    <FormActionSet {...{ dispatch }} />
+  )

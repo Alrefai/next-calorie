@@ -1,14 +1,15 @@
 export const meta = {
   title: `Calories Counter`,
-  description: `Calories Counter (demo) – a single page React app built with `
-    + `Next.js and deployed to now.sh with Docker.`,
+  description:
+    `Calories Counter (demo) – a single page React app built with ` +
+    `Next.js and TypeScript.`,
 }
 export const initModel = {
   description: ``,
   calories: 0,
   showForm: false,
   nextId: 1,
-  editId: null,
+  editId: undefined,
   saveButton: `Save`,
   meals: [],
   history: [],
@@ -17,5 +18,6 @@ export const initModel = {
 
 export const saveButton = `Fill in all input fields`
 
-export const hintText = `Start by clicking 'Add Meal' button. Or, click the `
-  + `'Data Sample' button to add sample meals.`
+export const hintText =
+  `Start by clicking 'Add Meal' button. Or, click the ` +
+  `'Data Sample' button to add sample meals.`

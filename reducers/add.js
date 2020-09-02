@@ -1,12 +1,15 @@
 import { saveButton } from '../constants'
 
-const add = model => {
+export const add = model => {
   const { description, calories, timeLine } = model
+
   if (!description || !calories) return { ...model, saveButton }
+
   const meal = { id: model.nextId, description, calories }
   const meals = [...model.meals, meal]
   const nextId = model.nextId + 1
   const history = [...model.history.slice(0, timeLine + 1), { meals, nextId }]
+
   return {
     ...model,
     meals,
@@ -19,5 +22,3 @@ const add = model => {
     saveButton: `Save`,
   }
 }
-
-export default add

@@ -1,9 +1,9 @@
-import Header from '../components/header'
-import Form from '../components/form'
-import Table from '../components/table'
+import { Header } from '../components/header'
+import { Form } from '../components/form'
+import { Table } from '../components/table'
 
 const Index = ({ dispatch, model }) => (
-  <div className={`mh2`}>
+  <div className='mh2'>
     <Header />
     <Form {...{ dispatch, model }} />
     <Table {...{ dispatch, model }} />
