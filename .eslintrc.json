@@ -1,0 +1,122 @@
+{
+  "root": true,
+  "env": { "browser": true, "es6": true, "node": true },
+  "extends": [
+    "airbnb",
+    "plugin:import/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:functional/external-recommended",
+    "plugin:functional/recommended",
+    // Keep prettier config last, to give it a chance to override other configs
+    "plugin:prettier/recommended",
+    "prettier/react"
+  ],
+  "globals": { "Atomics": "readonly", "SharedArrayBuffer": "readonly" },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "createDefaultProgram": true,
+    "ecmaFeatures": { "jsx": true },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "settings": { "react": { "version": "detect" } },
+  "plugins": ["react-hooks", "functional"],
+  "rules": {
+    "quotes": [2, "backtick"],
+    "radix": 0,
+    "no-bitwise": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/require-default-props": 0,
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/display-name": 0,
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        "forbid": [
+          {
+            "char": ">",
+            "alternatives": ["&gt;"]
+          },
+          {
+            "char": "}",
+            "alternatives": ["&#125;"]
+          }
+        ]
+      }
+    ],
+    "react-hooks/rules-of-hooks": 2,
+    "react-hooks/exhaustive-deps": 1,
+    "import/no-internal-modules": [
+      2,
+      { "allow": ["next/*", "**/components/*", "**/*.css"] }
+    ],
+    "import/no-useless-path-segments": [2, { "noUselessIndex": true }],
+    "import/no-unused-modules": [
+      1,
+      {
+        "unusedExports": true,
+        "missingExports": true,
+        "ignoreExports": ["pages/*", "**/*.d.ts"]
+      }
+    ],
+    "import/extensions": [2, "never"],
+    "import/order": [
+      2,
+      {
+        "groups": ["builtin", "external", "parent", "sibling", "index"]
+      }
+    ],
+    "import/no-named-default": 2,
+    "import/no-anonymous-default-export": 2,
+    "import/no-extraneous-dependencies": 0,
+    "import/prefer-default-export": 0,
+    "import/no-default-export": 2,
+    "functional/functional-parameters": 0,
+    "functional/no-conditional-statement": [
+      2,
+      { "allowReturningBranches": true }
+    ],
+    "functional/no-expression-statement": [
+      2,
+      {
+        "ignorePattern": [
+          "(e|event).preventDefault",
+          "^dispatch",
+          "console.log",
+          "componentDidCatch",
+          "module.exports"
+        ]
+      }
+    ],
+    "functional/immutable-data": [2, { "ignorePattern": ["module.exports"] }],
+    "unicorn/prevent-abbreviations": 0,
+    "unicorn/number-literal-case": 0,
+    "unicorn/filename-case": 0,
+    "unicorn/no-abusive-eslint-disable": 0
+  },
+  "overrides": [
+    {
+      // enable the rule specifically for TypeScript files
+      "files": ["*.ts{,x}"],
+      "plugins": ["@typescript-eslint"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:import/typescript",
+        "prettier/@typescript-eslint"
+      ],
+      "rules": { "@typescript-eslint/explicit-function-return-type": 2 }
+    },
+    {
+      "files": ["pages/*"],
+      "rules": { "import/no-default-export": 0 }
+    },
+    {
+      "files": ["pages/_*.{js,tsx}"],
+      "rules": { "functional/no-this-expression": 0, "functional/no-class": 0 }
+    }
+  ]
+}
