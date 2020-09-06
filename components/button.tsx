@@ -9,12 +9,20 @@ export const TYPES = {
   },
 }
 
+type Element = `button`
+type OmitProp = `children`
+
+type Props = Omit<React.ComponentPropsWithoutRef<Element>, OmitProp> & {
+  readonly text: string
+  readonly buttonType?: string
+}
+
 export const Button = ({
   text,
   className = ``,
   buttonType = TYPES.CLASS.PRIMARY,
   ...props
-}) => (
+}: Props): JSX.Element => (
   <button
     type='button'
     className={`${className} ${buttonType} f5 pa2`}
