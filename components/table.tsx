@@ -1,12 +1,16 @@
+import { useModel } from '../context'
 import { HintCard } from './hintCard'
 import { MealHeader, MealBody } from './tableContainer'
 
-export const Table = ({ dispatch, model: { meals } }) =>
-  meals.length === 0 ? (
-    <HintCard {...{ dispatch }} />
+export const Table = (): JSX.Element => {
+  const { meals } = useModel()
+
+  return meals.length === 0 ? (
+    <HintCard />
   ) : (
     <table className='f4 mv2 w-100 collapse'>
-      <MealHeader titles={[`Meal`, `Calories`]} />
-      <MealBody {...{ dispatch, meals }} fields={[`description`, `calories`]} />
+      <MealHeader />
+      <MealBody {...{ meals }} />
     </table>
   )
+}

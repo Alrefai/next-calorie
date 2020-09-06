@@ -1,11 +1,14 @@
 import { Button, TYPES } from '../button'
 
+type PickProps = `onClick` | `text`
+type Props = Required<Pick<React.ComponentProps<typeof Button>, PickProps>>
+
 const {
   CLASS: { SECONDARY },
   STYLE: { BBLR, BBRR },
 } = TYPES
 
-export const ButtonSet = ({ onClick, text }) => (
+export const ButtonSet = ({ onClick, text }: Props): JSX.Element => (
   <div>
     <Button
       {...{ text }}

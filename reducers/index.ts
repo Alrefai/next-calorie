@@ -1,100 +1,122 @@
-import { pipe, defaultTo, filter, find } from 'ramda'
-import { ACTIONS } from '../actions'
-import { add } from './add'
-import { edit } from './edit'
+import type { Action, Data, Model } from '../types'
+import { MSG } from '../actions'
+import { onSaveNewMeal } from './on-save-new-meal'
+import { onSaveEditedMeal } from './on-save-edited-meal'
 
-export const reducer = (model, action) => {
+const assertError = (message: string): never => {
+  throw new Error(message)
+}
+
+const onCaloriesInput = (state: Model, calories: string): Model => {
+  if (!/^\d{0,4}$/.test(calories)) return state
+
+  return { ...state, calories: +calories, saveButton: `Save` }
+}
+
+const onDeleteMeal = (state: Model, id: number, key?: string): Model => {
+  if (key && ![` `, `Enter`].includes(key)) return state
+
+  const { nextId } = state
+  const meals = state.meals.filter(meal => meal.id !== id)
+
+  const history = [
+    ...state.history.slice(0, state.timeLine + 1),
+    { meals, nextId },
+  ]
+
+  const timeLine = history.length - 1
+
+  return { ...state, meals, history, timeLine }
+}
+
+const onEditMeal = (state: Model, editId: number, key?: string): Model => {
+  if (key && ![` `, `Enter`].includes(key)) return state
+
+  const meal = state.meals.find(item => item.id === editId)
+
+  if (!meal) return state
+
+  const { description, calories } = meal
+
+  return {
+    ...state,
+    editId,
+    description,
+    calories,
+    showForm: true,
+  }
+}
+
+const onUndo = (state: Model, key?: string): Model => {
+  if (key && ![` `, `Enter`].includes(key)) return state
+  if (!state.timeLine) return state
+
+  const timeLine = state.timeLine - 1
+  const { meals, nextId } = state.history[timeLine]
+
+  return { ...state, meals, timeLine, nextId }
+}
+
+const onRedo = (state: Model, key?: string): Model => {
+  if (key && ![` `, `Enter`].includes(key)) return state
+  if (state.history.length === 0) return state
+  if (state.timeLine === state.history.length - 1) return state
+
+  const timeLine = state.timeLine + 1
+  const { meals, nextId } = state.history[timeLine]
+
+  return { ...state, meals, timeLine, nextId }
+}
+
+const onAddData = (state: Model, data: Data): Model => {
+  const nextId = data.meals.length + 1
+  const snapShot = { ...data, nextId }
+  const history = [...state.history, snapShot]
+
+  return { ...state, ...data, history, nextId }
+}
+
+export const reducer = (state: Model, action: Action): Model => {
   switch (action.type) {
-    case ACTIONS.SHOW_FORM: {
-      const { showForm } = action
-
+    case MSG.SHOW_FORM:
       return {
-        ...model,
-        showForm,
+        ...state,
+        showForm: action.showForm,
         description: ``,
         calories: 0,
         editId: undefined,
         saveButton: `Save`,
       }
+
+    case MSG.MEAL_INPUT:
+      return { ...state, description: action.description, saveButton: `Save` }
+
+    case MSG.CALORIES_INPUT:
+      return onCaloriesInput(state, action.calories)
+
+    case MSG.SAVE_MEAL:
+      return state.editId ? onSaveEditedMeal(state) : onSaveNewMeal(state)
+
+    case MSG.DELETE_MEAL:
+      return onDeleteMeal(state, action.id, action.key)
+
+    case MSG.EDIT_MEAL:
+      return onEditMeal(state, action.editId, action.key)
+
+    case MSG.UNDO:
+      return onUndo(state, action.key)
+
+    case MSG.REDO:
+      return onRedo(state, action.key)
+
+    case MSG.ADD_DATA:
+      return onAddData(state, action.data)
+
+    default: {
+      const unHandledAction: never = action // catches unused valid action type
+      const { type } = unHandledAction
+
+      return assertError(`Unhandled action type: ${type as string}`)
     }
-
-    case ACTIONS.MEAL_INPUT: {
-      const { description } = action
-
-      return { ...model, description, saveButton: `Save` }
-    }
-
-    case ACTIONS.CALORIES_INPUT: {
-      const calories = pipe(parseInt, defaultTo(0))(action.calories)
-
-      return { ...model, calories, saveButton: `Save` }
-    }
-
-    case ACTIONS.SAVE_MEAL: {
-      const { editId } = model
-      const updatedModel = editId ? edit(model) : add(model)
-
-      return updatedModel
-    }
-
-    case ACTIONS.DELETE_MEAL: {
-      const { id } = action
-      const { nextId } = model
-      const meals = filter(meal => meal.id !== id, model.meals)
-
-      const history = [
-        ...model.history.slice(0, model.timeLine + 1),
-        { meals, nextId },
-      ]
-
-      const timeLine = history.length - 1
-
-      return { ...model, meals, history, timeLine }
-    }
-
-    case ACTIONS.EDIT_MEAL: {
-      const { editId } = action
-      const meal = find(item => item.id === editId, model.meals)
-      const { description, calories } = meal
-
-      return {
-        ...model,
-        editId,
-        description,
-        calories,
-        showForm: true,
-      }
-    }
-
-    case ACTIONS.UNDO: {
-      if (!model.timeLine) return model
-
-      const timeLine = model.timeLine - 1
-      const { meals, nextId } = model.history[timeLine]
-
-      return { ...model, meals, timeLine, nextId }
-    }
-
-    case ACTIONS.REDO: {
-      if (model.history.length === 0) return model
-      if (model.timeLine === model.history.length - 1) return model
-
-      const timeLine = model.timeLine + 1
-      const { meals, nextId } = model.history[timeLine]
-
-      return { ...model, meals, timeLine, nextId }
-    }
-
-    case ACTIONS.ADD_DATA: {
-      const { data } = action
-      const nextId = data.meals.length + 1
-      const snapShot = { ...data, nextId }
-      const history = [...model.history, snapShot]
-
-      return { ...model, ...data, history, nextId }
-    }
-
-    default:
-      return model
   }
 }

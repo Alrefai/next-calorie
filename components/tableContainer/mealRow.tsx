@@ -1,16 +1,34 @@
-import { pipe, partial, curry, map, append, addIndex } from 'ramda'
+import type { Meal } from '../../types'
 import { IconSet } from './iconSet'
 
-const bodyCell = curry((id, item, i) => (
-  <td key={`td${id}-${i}`} className='w-30 f5 pv3 ph2 bb b--near-white'>
+const bodyCell = (
+  id: number,
+  item: string | number,
+  i: number,
+): JSX.Element => (
+  <td
+    key={`body-table-cell-${id}-${i}`}
+    className='w-30 f5 pv3 ph2 bb b--near-white'
+  >
     {item}
   </td>
-))
+)
 
-export const MealRow = ({ dispatch, fields, row }) =>
-  pipe(
-    map(field => row[field]),
-    partial(addIndex(map), [bodyCell(row.id)]),
-    append(<IconSet key={`IS${row.id}`} {...{ dispatch }} mealId={row.id} />),
-    cells => <tr key={`trb${row.id}`}>{cells}</tr>,
-  )(fields)
+const fields: readonly (keyof Meal)[] = [`description`, `calories`]
+
+type Props = { readonly row: Meal }
+
+const MealCells = ({ row }: Props): JSX.Element => {
+  const fieldSet = fields
+    .map(field => row[field])
+    .map((item, i) => bodyCell(row.id, item, i))
+
+  return <>{fieldSet}</>
+}
+
+export const MealRow = ({ row }: Props): JSX.Element => (
+  <tr>
+    <MealCells {...{ row }} />
+    <IconSet id={row.id} />
+  </tr>
+)

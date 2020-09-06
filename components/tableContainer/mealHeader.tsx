@@ -1,15 +1,13 @@
-import { pipe, partial, map, __, concat, addIndex } from 'ramda'
-
-const headCell = (item, i) => (
-  <th key={`th${i}`} className='pa2 tl bb b-near-white'>
+const headCell = (item: string, i: number): JSX.Element => (
+  <th key={`header-table-cell-${i}`} className='pa2 tl bb b-near-white'>
     {item}
   </th>
 )
 
-export const MealHeader = ({ titles }) =>
-  pipe(
-    concat(__, [``, ``]),
-    partial(addIndex(map), [headCell]),
-    cells => <tr key='trh'>{cells}</tr>,
-    row => <thead>{row}</thead>,
-  )(titles)
+const titles = [`Meal`, `Calories`, ``, ``] as const
+
+export const MealHeader = (): JSX.Element => (
+  <thead>
+    <tr>{titles.map((title, i) => headCell(title, i))}</tr>
+  </thead>
+)

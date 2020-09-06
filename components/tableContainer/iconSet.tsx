@@ -1,35 +1,51 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { pipe, partial, curry, map, append, __, addIndex } from 'ramda'
 import { deleteMealAction, editMealAction } from '../../actions'
+import { useEvent } from '../../context'
 
-const deleteIcon = (dispatch, id) => (
-  <FontAwesomeIcon
-    icon={[`far`, `trash-alt`]}
-    key='fa-trash-alt'
-    className='mr2 pointer'
-    onClick={() => dispatch(deleteMealAction(id))}
-  />
+type Props = { readonly id: number }
+const className = `w-10 tr ph2 bb b-near-white`
+
+const DeleteIcon = ({ id }: Props): JSX.Element => {
+  const { onClick, onKeyUp } = useEvent({
+    handleClick: () => deleteMealAction(id),
+    handleKeyUp: key => deleteMealAction(id, key),
+  })
+
+  return (
+    <td {...{ className }}>
+      <span onKeyUp={onKeyUp} {...{ onClick, role: `button`, tabIndex: 0 }}>
+        <FontAwesomeIcon
+          icon={[`far`, `trash-alt`]}
+          key='fa-trash-alt'
+          className='mr2 pointer'
+        />
+      </span>
+    </td>
+  )
+}
+
+const EditIcon = ({ id }: Props): JSX.Element => {
+  const { onClick, onKeyUp } = useEvent({
+    handleClick: () => editMealAction(id),
+    handleKeyUp: key => editMealAction(id, key),
+  })
+
+  return (
+    <td {...{ className }}>
+      <span onKeyUp={onKeyUp} {...{ onClick, role: `button`, tabIndex: 0 }}>
+        <FontAwesomeIcon
+          icon={[`far`, `edit`]}
+          key='fa-edit'
+          className='pointer'
+        />
+      </span>
+    </td>
+  )
+}
+
+export const IconSet = ({ id }: Props): JSX.Element => (
+  <>
+    <DeleteIcon {...{ id }} />
+    <EditIcon {...{ id }} />
+  </>
 )
-
-const editIcon = (dispatch, id) => (
-  <FontAwesomeIcon
-    icon={[`far`, `edit`]}
-    key='fa-edit'
-    className='pointer'
-    onClick={() => dispatch(editMealAction(id))}
-  />
-)
-
-const iconCell = curry((id, item, i) => (
-  <td key={`i${id}-${i}`} className='w-10 tr ph2 bb b-near-white'>
-    {item}
-  </td>
-))
-
-export const IconSet = ({ dispatch, mealId }) =>
-  pipe(
-    deleteIcon,
-    append(__, []),
-    append(editIcon(dispatch, mealId)),
-    partial(addIndex(map), [iconCell(mealId)]),
-  )(dispatch, mealId)

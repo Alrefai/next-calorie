@@ -1,18 +1,19 @@
+import type { Model } from '../types'
 import { saveButton } from '../constants'
 
-export const edit = model => {
-  const { nextId, editId, description, calories, timeLine } = model
+export const onSaveEditedMeal = (state: Model): Model => {
+  const { nextId, editId, description, calories, timeLine } = state
 
-  if (!description || !calories) return { ...model, saveButton }
+  if (!description || !calories) return { ...state, saveButton }
 
-  const meals = model.meals.map(meal =>
+  const meals = state.meals.map(meal =>
     meal.id === editId ? { ...meal, description, calories } : meal,
   )
 
-  const history = [...model.history.slice(0, timeLine + 1), { meals, nextId }]
+  const history = [...state.history.slice(0, timeLine + 1), { meals, nextId }]
 
   return {
-    ...model,
+    ...state,
     meals,
     history,
     timeLine: history.length - 1,

@@ -1,15 +1,15 @@
 import { Header } from '../components/header'
 import { Form } from '../components/form'
 import { Table } from '../components/table'
+import { StoreProvider } from '../context'
 
-const Index = ({ dispatch, model }) => (
+const Index = (): JSX.Element => (
   <div className='mh2'>
     <Header />
-    <Form {...{ dispatch, model }} />
-    <Table {...{ dispatch, model }} />
-    {/* <pre className={`f5`}> */}
-    {/*   {JSON.stringify(model, null, 2)} */}
-    {/* </pre> */}
+    <StoreProvider>
+      <Form />
+      <Table />
+    </StoreProvider>
   </div>
 )
 

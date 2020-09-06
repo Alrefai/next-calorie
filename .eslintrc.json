@@ -3,13 +3,16 @@
   "env": { "browser": true, "es6": true, "node": true },
   "extends": [
     "airbnb",
-    "plugin:import/recommended",
     "plugin:unicorn/recommended",
     "plugin:functional/external-recommended",
     "plugin:functional/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
     // Keep prettier config last, to give it a chance to override other configs
     "plugin:prettier/recommended",
-    "prettier/react"
+    "prettier/react",
+    "prettier/unicorn"
   ],
   "globals": { "Atomics": "readonly", "SharedArrayBuffer": "readonly" },
   "parser": "@typescript-eslint/parser",
@@ -21,11 +24,18 @@
     "sourceType": "module"
   },
   "settings": { "react": { "version": "detect" } },
-  "plugins": ["react-hooks", "functional"],
+  "plugins": [
+    "@typescript-eslint",
+    "react-hooks",
+    "unicorn",
+    "functional",
+    "import"
+  ],
   "rules": {
     "quotes": [2, "backtick"],
     "radix": 0,
     "no-bitwise": 0,
+    "array-callback-return": [2, { "allowImplicit": true }],
     "react/jsx-filename-extension": 0,
     "react/jsx-props-no-spreading": 0,
     "react/require-default-props": 0,
@@ -33,17 +43,11 @@
     "react/react-in-jsx-scope": 0,
     "react/display-name": 0,
     "react/no-unescaped-entities": [
-      "error",
+      2,
       {
         "forbid": [
-          {
-            "char": ">",
-            "alternatives": ["&gt;"]
-          },
-          {
-            "char": "}",
-            "alternatives": ["&#125;"]
-          }
+          { "char": ">", "alternatives": ["&gt;"] },
+          { "char": "}", "alternatives": ["&#125;"] }
         ]
       }
     ],
@@ -66,7 +70,15 @@
     "import/order": [
       2,
       {
-        "groups": ["builtin", "external", "parent", "sibling", "index"]
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object"
+        ]
       }
     ],
     "import/no-named-default": 2,
@@ -83,7 +95,7 @@
       2,
       {
         "ignorePattern": [
-          "(e|event).preventDefault",
+          "^(e|event).*()",
           "^dispatch",
           "console.log",
           "componentDidCatch",
@@ -95,11 +107,12 @@
     "unicorn/prevent-abbreviations": 0,
     "unicorn/number-literal-case": 0,
     "unicorn/filename-case": 0,
-    "unicorn/no-abusive-eslint-disable": 0
+    "unicorn/no-abusive-eslint-disable": 0,
+    "unicorn/no-reduce": 0
   },
   "overrides": [
     {
-      // enable the rule specifically for TypeScript files
+      // Enable the following rules for TypeScript files
       "files": ["*.ts{,x}"],
       "plugins": ["@typescript-eslint"],
       "extends": [
@@ -108,15 +121,29 @@
         "plugin:import/typescript",
         "prettier/@typescript-eslint"
       ],
-      "rules": { "@typescript-eslint/explicit-function-return-type": 2 }
+      "settings": {
+        "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] }
+      }
     },
     {
-      "files": ["pages/*"],
+      "files": ["pages/*.{js,tsx}"],
       "rules": { "import/no-default-export": 0 }
     },
     {
       "files": ["pages/_*.{js,tsx}"],
-      "rules": { "functional/no-this-expression": 0, "functional/no-class": 0 }
+      "rules": {
+        "functional/no-this-expression": 0,
+        "functional/no-class": 0,
+        "functional/no-expression-statement": 0,
+        "functional/immutable-data": 0
+      }
+    },
+    {
+      "files": ["hooks/*.{js,ts}", "reducers/index.{js,ts}"],
+      "rules": {
+        "functional/no-throw-statement": 0,
+        "unicorn/no-useless-undefined": 0
+      }
     }
   ]
 }

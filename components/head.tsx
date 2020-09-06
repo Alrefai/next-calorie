@@ -4,7 +4,19 @@ const defaultDescription = ``
 const defaultOGURL = ``
 const defaultOGImage = ``
 
-export const Head = ({ title, description, url, ogImage }) => (
+type Meta = {
+  readonly title: string
+  readonly description: string
+  readonly url?: string
+  readonly ogImage?: string
+}
+
+export const Head = ({
+  title,
+  description,
+  url,
+  ogImage,
+}: Meta): JSX.Element => (
   <NextHead>
     <meta charSet='UTF-8' />
     <title>{title || ``}</title>
